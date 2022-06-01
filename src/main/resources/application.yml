@@ -1,0 +1,21 @@
+# Have the batch job run only with scheduling
+
+spring:
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: always
+  datasource:
+    url: jdbc:postgresql://localhost:5432/springbatchpoc
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+# Set the server port to 0 to enable running multiple instances
+server:
+  port: 0
+
+logging:
+  level:
+    root: INFO
