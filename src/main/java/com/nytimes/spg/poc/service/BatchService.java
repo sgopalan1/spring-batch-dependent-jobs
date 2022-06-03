@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class BatchService {
 
     public void doBatchJobBWork() throws InterruptedException {
-        final long JOB_EXECUTION_SECONDS = 10; // 1 min
+        final long JOB_EXECUTION_SECONDS = 5; // 1 min
 
         log.info("Batch job B work is being done");
         for (int i=0; i<JOB_EXECUTION_SECONDS; i++) {
