@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class Scheduler {
     private final MessageChannel jobAStatusReportingChannel;
 
-    @Scheduled(initialDelay = 3000, fixedDelay = 9999999)
+    @Scheduled(initialDelay = 2000, fixedDelay = 9999999)
     public void jobA() throws InterruptedException {
         log.info("Starting jobA");
         Thread.sleep(3 * 1000); // do "work": sleep for 3 sec

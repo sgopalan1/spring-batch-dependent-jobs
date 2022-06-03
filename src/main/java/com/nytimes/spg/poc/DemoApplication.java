@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @EnableIntegration
-@IntegrationComponentScan
+@IntegrationComponentScan // to scan for spring-integration related components
 public class DemoApplication {
 
 	public static void main(String[] args) {
