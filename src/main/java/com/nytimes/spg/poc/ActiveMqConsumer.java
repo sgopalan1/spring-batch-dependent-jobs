@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 import java.util.Date;
 
@@ -27,9 +26,9 @@ public class ActiveMqConsumer implements MessageListener {
     @JmsListener(destination = "${active-mq.topic:spg.poc}")
     public void onMessage(Message message) {
         try{
+            message.acknowledge();
             TextMessage textMessage = (TextMessage) message;
             String payLoad = textMessage.getText();
-            //do additional processing
             log.info("Received Message: {}", payLoad);
 
             JobParameters jobParameters = new JobParametersBuilder()
@@ -38,9 +37,8 @@ public class ActiveMqConsumer implements MessageListener {
                     .toJobParameters();
 
             jobLauncher.run(jobC, jobParameters);
-            message.acknowledge();
         } catch(Exception e) {
-            log.error("Received Exception : "+ e);
+            log.error("Received Exception parsing ActiveMQ message", e);
         }
 
     }
