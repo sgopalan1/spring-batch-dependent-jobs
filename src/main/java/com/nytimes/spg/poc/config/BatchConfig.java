@@ -24,6 +24,7 @@ public class BatchConfig {
     @Autowired
     private JobCTasklet jobCTasklet;
 
+    /* Job B Config */
     @Bean
     public Job jobB() {
         return jobBuilderFactory.get("jobB")
@@ -32,17 +33,18 @@ public class BatchConfig {
                 .build();
     }
 
+    private Step jobBStep1() {
+        return stepBuilderFactory.get("jobBStep1")
+                .tasklet(jobBTasklet)
+                .build();
+    }
+
+    /* Job C Config */
     @Bean
     public Job jobC() {
         return jobBuilderFactory.get("jobC")
                 .incrementer(new RunIdIncrementer())
                 .start(jobCStep1())
-                .build();
-    }
-
-    private Step jobBStep1() {
-        return stepBuilderFactory.get("jobBStep1")
-                .tasklet(jobBTasklet)
                 .build();
     }
 

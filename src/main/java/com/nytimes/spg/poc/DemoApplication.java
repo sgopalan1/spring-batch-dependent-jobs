@@ -19,6 +19,7 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
+	/* Define message channels */
 	@Bean
 	public MessageChannel jobAStatusReportingChannel() {
 		return new QueueChannel();

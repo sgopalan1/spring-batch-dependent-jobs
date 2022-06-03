@@ -28,7 +28,7 @@ public class BatchJobChannels {
 
     @ServiceActivator(inputChannel = "jobAStatusReportingChannel")
     public Message<String> consumeJobBMessage(Message<String> message) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
-        log.info("consumeJobBMessage -> Received message from gateway : " + message.getPayload());
+        log.info("consumeJobBMessage -> Received message: " + message.getPayload());
         JobParameters jobParameters = new JobParametersBuilder()
              .addDate("rundate", new Date())
              .addString("messagePayload", message.getPayload())
@@ -40,7 +40,7 @@ public class BatchJobChannels {
 
     @ServiceActivator(inputChannel = "jobBStatusReportingChannel")
     public Message<String> consumeJobCMessage(Message<String> message) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
-        log.info("consumeJobCMessage -> Received message from gateway : " + message.getPayload());
+        log.info("consumeJobCMessage -> Received message: " + message.getPayload());
         JobParameters jobParameters = new JobParametersBuilder()
              .addDate("rundate", new Date())
              .addString("messagePayload", message.getPayload())
