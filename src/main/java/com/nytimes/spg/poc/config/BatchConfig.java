@@ -1,7 +1,7 @@
 package com.nytimes.spg.poc.config;
 
-import com.nytimes.spg.poc.tasklet.Job1Tasklet;
-import com.nytimes.spg.poc.tasklet.Job2Tasklet;
+import com.nytimes.spg.poc.tasklet.JobBTasklet;
+import com.nytimes.spg.poc.tasklet.JobCTasklet;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -20,35 +20,35 @@ public class BatchConfig {
     @Autowired
     public StepBuilderFactory stepBuilderFactory;
     @Autowired
-    private Job1Tasklet job1Tasklet;
+    private JobBTasklet jobBTasklet;
     @Autowired
-    private Job2Tasklet job2Tasklet;
+    private JobCTasklet jobCTasklet;
 
     @Bean
-    public Job myFirstJob() {
-        return jobBuilderFactory.get("myFirstJob")
+    public Job jobB() {
+        return jobBuilderFactory.get("jobB")
                 .incrementer(new RunIdIncrementer())
-                .start(firstJobStep1())
+                .start(jobBStep1())
                 .build();
     }
 
     @Bean
-    public Job mySecondJob() {
-        return jobBuilderFactory.get("mySecondJob")
+    public Job jobC() {
+        return jobBuilderFactory.get("jobC")
                 .incrementer(new RunIdIncrementer())
-                .start(secondJobStep1())
+                .start(jobCStep1())
                 .build();
     }
 
-    private Step firstJobStep1() {
-        return stepBuilderFactory.get("firstJobStep1")
-                .tasklet(job1Tasklet)
+    private Step jobBStep1() {
+        return stepBuilderFactory.get("jobBStep1")
+                .tasklet(jobBTasklet)
                 .build();
     }
 
-    private Step secondJobStep1() {
-        return stepBuilderFactory.get("secondJobStep1")
-                .tasklet(job2Tasklet)
+    private Step jobCStep1() {
+        return stepBuilderFactory.get("jobCStep1")
+                .tasklet(jobCTasklet)
                 .build();
     }
 }

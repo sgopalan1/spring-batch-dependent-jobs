@@ -11,7 +11,6 @@ import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteExcep
 import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.integration.annotation.ServiceActivator;
-import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
@@ -19,35 +18,35 @@ import java.util.Date;
 
 @Slf4j
 @Component
-public class BatchJobChnnels {
+public class BatchJobChannels {
     @Autowired
-    private Job myFirstJob;
+    private Job jobB;
     @Autowired
-    private Job mySecondJob;
+    private Job jobC;
     @Autowired
     private JobLauncher jobLauncher;
 
-    @ServiceActivator(inputChannel = "job1Channel")
-    public Message<String> consumeJob1Message(Message<String> message) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
-        log.info("consumeJob1Message -> Received message from gateway : " + message.getPayload());
+    @ServiceActivator(inputChannel = "jobAStatusReportingChannel")
+    public Message<String> consumeJobBMessage(Message<String> message) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+        log.info("consumeJobBMessage -> Received message from gateway : " + message.getPayload());
         JobParameters jobParameters = new JobParametersBuilder()
              .addDate("rundate", new Date())
              .addString("messagePayload", message.getPayload())
              .toJobParameters();
 
-        jobLauncher.run(myFirstJob, jobParameters);
+        jobLauncher.run(jobB, jobParameters);
         return null;
     }
 
-    @ServiceActivator(inputChannel = "job2Channel")
-    public Message<String> consumeJob2Message(Message<String> message) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
-        log.info("consumeJob2Message -> Received message from gateway : " + message.getPayload());
+    @ServiceActivator(inputChannel = "jobBStatusReportingChannel")
+    public Message<String> consumeJobCMessage(Message<String> message) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+        log.info("consumeJobCMessage -> Received message from gateway : " + message.getPayload());
         JobParameters jobParameters = new JobParametersBuilder()
              .addDate("rundate", new Date())
              .addString("messagePayload", message.getPayload())
              .toJobParameters();
 
-        jobLauncher.run(mySecondJob, jobParameters);
+        jobLauncher.run(jobC, jobParameters);
         return null;
     }
 }

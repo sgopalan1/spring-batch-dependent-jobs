@@ -20,12 +20,12 @@ public class DemoApplication {
 	}
 
 	@Bean
-	public MessageChannel job1Channel() {
+	public MessageChannel jobAStatusReportingChannel() {
 		return new QueueChannel();
 	}
 
 	@Bean
-	public MessageChannel job2Channel() {
+	public MessageChannel jobBStatusReportingChannel() {
 		return new QueueChannel();
 	}
 

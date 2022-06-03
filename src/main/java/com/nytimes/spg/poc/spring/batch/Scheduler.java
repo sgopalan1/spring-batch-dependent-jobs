@@ -15,14 +15,14 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class Scheduler {
-    private final MessageChannel job1Channel;
+    private final MessageChannel jobAStatusReportingChannel;
 
     @Scheduled(initialDelay = 3000, fixedDelay = 9999999)
-    public void springIntegrationJob1() throws InterruptedException {
-        log.info("Starting springIntegrationJob1");
+    public void jobA() throws InterruptedException {
+        log.info("Starting jobA");
         Thread.sleep(3 * 1000); // sleep for 3 sec
-        Message<String> message = MessageBuilder.withPayload("springIntegrationJob1 is done").build();
-        job1Channel.send(message);
-        log.info("Ending springIntegrationJob1");
+        Message<String> message = MessageBuilder.withPayload("Job A is done").build();
+        jobAStatusReportingChannel.send(message);
+        log.info("Ending jobA");
     }
 }
