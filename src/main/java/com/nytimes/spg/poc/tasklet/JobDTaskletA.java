@@ -1,6 +1,5 @@
 package com.nytimes.spg.poc.tasklet;
 
-import com.nytimes.spg.poc.service.BatchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepContribution;
@@ -16,16 +15,12 @@ import java.time.LocalDate;
 
 @Component
 @Slf4j
-@RequiredArgsConstructor
-public class JobBTasklet implements Tasklet {
-    private final BatchService batchService;
-    private final MessageChannel jobBStatusReportingChannel;
-
+public class JobDTaskletA implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-        log.info("JobBTasklet running!!!");
-        batchService.doBatchJobBWork();
-        jobBStatusReportingChannel.send(MessageBuilder.withPayload("Job B is done").build());
+        log.info("JobDTaskletA running!!!");
+        Thread.sleep(2000);
+        log.info("JobDTaskletA done!!!");
         return RepeatStatus.FINISHED;
     }
 }

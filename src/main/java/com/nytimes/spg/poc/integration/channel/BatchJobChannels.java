@@ -26,7 +26,7 @@ public class BatchJobChannels {
     @Autowired
     private JobLauncher jobLauncher;
 
-    @ServiceActivator(inputChannel = "jobAStatusReportingChannel")
+    @ServiceActivator(inputChannel = "TEMPjobAStatusReportingChannel")
     public Message<String> consumeJobBMessage(Message<String> message) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
         log.info("consumeJobBMessage -> Received message: " + message.getPayload());
         JobParameters jobParameters = new JobParametersBuilder()
@@ -38,7 +38,7 @@ public class BatchJobChannels {
         return null;
     }
 
-    @ServiceActivator(inputChannel = "jobBStatusReportingChannel")
+    @ServiceActivator(inputChannel = "TEMPjobBStatusReportingChannel")
     public Message<String> consumeJobCMessage(Message<String> message) throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
         log.info("consumeJobCMessage -> Received message: " + message.getPayload());
         JobParameters jobParameters = new JobParametersBuilder()
