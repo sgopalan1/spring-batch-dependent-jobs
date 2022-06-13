@@ -41,14 +41,14 @@ public class BatchConfig {
     @Qualifier("jobB")
     @Bean
     public Job jobB() {
-        return jobBuilderFactory.get("jobBZ")
+        return jobBuilderFactory.get("jobB")
                 .incrementer(new RunIdIncrementer())
                 .start(jobBStep1())
                 .build();
     }
 
     private Step jobBStep1() {
-        return stepBuilderFactory.get("jobBZStep1")
+        return stepBuilderFactory.get("jobBStep1")
                 .tasklet(jobBTasklet)
                 .build();
     }
